@@ -37,9 +37,9 @@ The player starts the game with a three stars as a rank.
 I considered a complete move to take place  when at least two cards are flipped not when the user clicks on a single card.
 A star is removed everytime the player has made a number of moves, the counter starting from the cards' array length depending on the difficulty chosen as follows:
 
--for easy mode at: 16 moves -- 32 moves -- 48 moves 
--for medium mode at: 36 moves -- 72 moves -- 108 moves
--for hard mode at:  64 moves -- 128 moves -- 192 moves
+- for easy mode at: 16 moves -- 32 moves -- 48 moves 
+- for medium mode at: 36 moves -- 72 moves -- 108 moves
+- for hard mode at:  64 moves -- 128 moves -- 192 moves
 
 ### Reset functionality
 
