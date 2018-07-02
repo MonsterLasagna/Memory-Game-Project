@@ -1,0 +1,956 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	/* Background pattern from Subtle Patterns */
+	background: #ffffff url('img/geometry2.png');
+
+
+}
+
+.title {
+	margin: 0;
+	padding: 0.3rem;
+	font-family: 'Berkshire Swash', cursive;
+	color: midnightblue;
+	font-size: 3rem;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+/* Styles for the deck of cards */
+
+.deck {
+	width: 40%;
+	height: 30%;
+	background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+	padding: 2rem;
+	border-radius: 0.625rem;
+	box-shadow: 0.825rem 1rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 0 3em;
+	text-align: center;
+}
+
+.mediumStyle {
+	width: 80%;
+	height: 50%;
+}
+
+.hardStyle {
+	width: 100%;
+	height: 20%;
+}
+
+.deck .card.open,
+.deck .cardHard.open,
+.deck .cardMedium.open {
+	transform: rotateY(0);
+	background: #02b3e4;
+	cursor: default;
+}
+
+.deck .card.show,
+.deck .cardHard.show,
+.deck .cardMedium.show {
+	font-size: 1.875rem;
+}
+
+.deck .card.match,
+.deck .cardHard.match,
+.deck .cardMedium.match {
+	animation: shake-correct 0.82s cubic-bezier(.36, .07, .19, .97) both;
+	cursor: default;
+	background: #02ccba;
+	font-size: 1.875rem;
+}
+
+.deck .card.nomatch,
+.deck .cardHard.nomatch,
+.deck .cardMedium.nomatch {
+	animation: shake-wrong 0.82s cubic-bezier(.36, .07, .19, .97) both;
+	cursor: default;
+	background: #ba02cc;
+	font-size: 1.875rem;
+}
+
+.card {
+	color: white;
+	height: 5.5rem;
+	width: 5.5rem;
+	margin: 0.5rem;
+	background-color: #2e3d49;
+	font-size: 0;
+	color: #ffffff;
+	border-radius: 0.625rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+}
+
+.cardHard {
+	color: white;
+	height: 4rem;
+	width: 4rem;
+	margin: 0.5rem;
+	background-color: #2e3d49;
+	font-size: 0;
+	color: #ffffff;
+	border-radius: 0.625rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+}
+
+.cardMedium {
+	color: white;
+	height: 5.5rem;
+	width: 5.5rem;
+	margin: 0.5rem;
+	background-color: #2e3d49;
+	font-size: 0;
+	color: #ffffff;
+	border-radius: 0.625rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+}
+
+/* Styles for the Score Panel */
+
+#moves {
+	color: blue;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 2rem;
+	margin-right: 2rem;
+}
+
+#unit {
+	margin: 0;
+	font-family: 'Berkshire Swash', cursive;
+	color: midnightblue;
+	font-size: 1.5rem;
+}
+
+.score-panel {
+	text-align: left;
+	height: 30%;
+	width: 35%;
+	margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+	padding: 0.2rem;
+	font-size: 1.875rem;
+	display: inline-block;
+}
+
+.stars {
+	display: inline-block;
+	margin: 0 1.3rem 0 0;
+	color: hotpink;
+	font-size: 90%;
+	list-style: none;
+}
+
+#refreshButton {
+	float: right;
+	cursor: pointer;
+	margin-top: 0.5rem;
+	width: 4.375rem;
+	height: 1.875rem;
+	border-radius: 0.625rem;
+	color: hotpink;
+	background-color: cornsilk;
+	font-size: 1.25rem;
+	display: inline-block;
+}
+
+/* Styles for the timer */
+
+.timer {
+	width: 40%;
+	height: 10%;
+	margin: 0;
+	padding: 0.3rem;
+	background-color: pink;
+	text-align: center;
+	box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+}
+
+.timerTitle {
+	margin: 0;
+	font-family: 'Berkshire Swash', cursive;
+	color: midnightblue;
+	font-size: 1.5rem;
+}
+
+#timerLabel {
+	margin: 0;
+	color: cornsilk;
+	font-size: 1.5rem;
+}
+
+
+
+/* Styles for the Dialog boxes */
+
+.modal {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	display: none;
+	transform: scale(1.1);
+	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+	list-style: none;
+}
+
+.modal-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 1rem 1.5rem;
+	width: 20rem;
+	border-radius: 0.5rem;
+	font-family: 'Berkshire Swash', cursive;
+	color: hotpink;
+	background: #ffffff url('img/geometry2.png');
+	text-align: center;
+}
+
+.results {
+	display: block;
+	padding: 0.312rem;
+	list-style: none;
+	text-align: center;
+	font-family: 'Berkshire Swash', cursive;
+	color: white;
+	font-weight: bold;
+	background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+}
+
+pre {
+	font-family: 'Berkshire Swash', cursive;
+}
+
+.modalButtons {
+	padding: 0;
+	cursor: pointer;
+	display: inline-block;
+	width: 4.5rem;
+	height: 2rem;
+	border-radius: 0.4rem;
+	text-align: center;
+	font-weight: bold;
+	font-size: 0.875rem;
+	font-family: 'Berkshire Swash', cursive;
+	color: hotpink;
+	background-color: cornsilk;
+}
+
+.difficultyButtons {
+	width: 5rem;
+	height: 4rem;
+	border-radius: 0.625rem;
+	background-color: cornsilk;
+	font-size: 0.8rem;
+	font-family: 'Berkshire Swash', cursive;
+	color: hotpink;
+}
+
+
+.show-modal {
+	display: block;
+	opacity: 1;
+	transform: scale(1.0);
+	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+#destiny,
+#starScore,
+#totalMoves,
+#time {
+	color: midnightblue;
+}
+
+#trophy {
+	color: yellow;
+}
+
+/* https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
+
+@keyframes shake-wrong {
+	10%,
+	90% {
+		transform: translate3d(-1px, 0, 0);
+	}
+
+	20%,
+	80% {
+		transform: translate3d(2px, 0, 0);
+	}
+
+	30%,
+	50%,
+	70% {
+		transform: translate3d(-4px, 0, 0);
+	}
+
+	40%,
+	60% {
+		transform: translate3d(4px, 0, 0);
+	}
+}
+
+@keyframes shake-correct {
+	10%,
+	90% {
+		transform: translate3d(0, -1px, 0);
+	}
+
+	20%,
+	80% {
+		transform: translate3d(0, 2px, 0);
+	}
+
+	30%,
+	50%,
+	70% {
+		transform: translate3d(0, -4px, 0);
+	}
+
+	40%,
+	60% {
+		transform: translate3d(0, 4px, 0);
+	}
+}
+
+@media screen and (max-width:360px) {
+
+	.card {
+		color: white;
+		height: 3rem;
+		width: 3rem;
+		margin: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+
+	.cardHard {
+		color: white;
+		height: 2rem;
+		width: 2rem;
+		margin: 0.2rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+
+	.cardMedium {
+		color: white;
+		height: 2rem;
+		width: 2rem;
+		margin: 0.2rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		padding: 0;
+	}
+
+	.deck {
+		width: 100%;
+		height: 30%;
+		background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+		padding: 2rem;
+		border-radius: 0.625rem;
+		box-shadow: 0.825rem 1rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 0 3rem;
+		text-align: center;
+	}
+
+	.mediumStyle {
+		width: 100%;
+		height: 40%;
+		margin: 0;
+		padding: 0;
+	}
+	.hardStyle {
+		width: 100%;
+		height: 20%;
+		margin: 0 0 2rem;
+		padding: 1rem;
+	}
+	.score-panel {
+		text-align: left;
+		height: 30%;
+		width: 100%;
+		margin: 0;
+		padding: 0.2rem;
+		font-size: 1.875rem;
+		display: inline-block;
+	}
+	.stars {
+		display: inline-block;
+		margin: 0 0.2rem 0 0;
+		color: hotpink;
+		font-size: 90%;
+		list-style: none;
+	}
+
+	#refreshButton {
+		display: inline-block;
+		cursor: pointer;
+		margin-top: 0.5rem;
+		width: 4.375rem;
+		height: 1.875rem;
+		border-radius: 0.625rem;
+		color: hotpink;
+		background-color: cornsilk;
+		font-size: 1.25rem;
+
+	}
+	#moves {
+		color: blue;
+		display: inline-block;
+		font-weight: bold;
+		font-size: 2rem;
+		margin: 0;
+	}
+	.title {
+		margin: 0;
+		padding: 0.3rem;
+		font-family: 'Berkshire Swash', cursive;
+		color: midnightblue;
+		font-size: 2rem;
+	}
+}
+
+@media screen and (min-width:361px) and (max-width:599px) {
+
+	.card {
+		color: white;
+		height: 5.5rem;
+		width: 5.5rem;
+		margin: 1rem;
+		padding: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+
+	.cardHard {
+		color: white;
+		height: 3rem;
+		width: 3rem;
+		margin: 0.3rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+
+	.cardMedium {
+		color: white;
+		height: 3rem;
+		width: 3rem;
+		margin: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		padding: 2rem;
+	}
+
+	.deck {
+		width: 80%;
+		height: 40%;
+		background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+		padding: 2rem;
+		border-radius: 0.625rem;
+		box-shadow: 0.825rem 1rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 0 3rem;
+		text-align: center;
+	}
+
+	.mediumStyle {
+		width: 75%;
+		height: 40%;
+		margin: 0;
+		padding: 0;
+	}
+	.hardStyle {
+		width: 80%;
+		height: 20%;
+		margin: 0 0 2rem;
+		padding: 1rem;
+	}
+
+	#moves {
+		color: blue;
+		display: inline-block;
+		font-weight: bold;
+		font-size: 2rem;
+		margin-right: 2rem;
+	}
+
+	#unit {
+		margin: 0;
+		font-family: 'Berkshire Swash', cursive;
+		color: midnightblue;
+		font-size: 1.5rem;
+	}
+	.score-panel {
+		text-align: left;
+		height: 30%;
+		width: 60%;
+		margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+		padding: 0.2rem;
+		font-size: 1.875rem;
+		display: inline-block;
+	}
+
+	.stars {
+		display: inline-block;
+		margin: 0 1rem 0 0;
+		color: hotpink;
+		font-size: 90%;
+		list-style: none;
+	}
+
+	#refreshButton {
+		float: right;
+		cursor: pointer;
+		margin-top: 0.5rem;
+		width: 4.375rem;
+		height: 1.875rem;
+		border-radius: 0.625rem;
+		color: hotpink;
+		background-color: cornsilk;
+		font-size: 1.25rem;
+		display: inline-block;
+	}
+
+	.title {
+		margin: 0;
+		padding: 0.3rem;
+		font-family: 'Berkshire Swash', cursive;
+		color: midnightblue;
+		font-size: 3rem;
+	}
+}
+
+/* blackberry playbook and nexus 7 */
+
+@media screen and (min-width:600px) and (max-width:700px) {
+	#moves {
+		color: blue;
+		display: inline-block;
+		font-weight: bold;
+		font-size: 2rem;
+
+	}
+
+	#unit {
+		margin: 0;
+		font-family: 'Berkshire Swash', cursive;
+		color: midnightblue;
+		font-size: 1.5rem;
+	}
+	.score-panel {
+		text-align: left;
+		height: 30%;
+		width: 80%;
+		margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+		padding: 0.2rem;
+		font-size: 1.875rem;
+		display: inline-block;
+	}
+
+	.stars {
+		display: inline-block;
+		margin: 0 1rem 0 0;
+		color: hotpink;
+		font-size: 90%;
+		list-style: none;
+	}
+
+	#refreshButton {
+		float: right;
+		cursor: pointer;
+		margin-top: 0.3rem;
+		width: 4.375rem;
+		height: 1.875rem;
+		border-radius: 0.625rem;
+		color: hotpink;
+		background-color: cornsilk;
+		font-size: 1.25rem;
+		display: inline-block;
+	}
+
+	.title {
+		margin: 0;
+		padding: 0.3rem;
+		font-family: 'Berkshire Swash', cursive;
+		color: midnightblue;
+		font-size: 3rem;
+	}
+	.deck {
+		width: 100%;
+		height: 30%;
+		background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+		padding: 0.5rem;
+		border-radius: 0.625rem;
+		box-shadow: 0.825rem 1rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 0 1rem;
+		text-align: center;
+	}
+
+	.mediumStyle {
+		width: 100%;
+		height: 40%;
+		margin: 0;
+		padding: 0;
+	}
+	.hardStyle {
+		width: 90%;
+		height: 20%;
+		margin: 0 0 2rem;
+		padding: 1rem;
+	}
+	.card {
+		color: white;
+		height: 5.5rem;
+		width: 5.5rem;
+		margin: 1rem;
+		padding: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+
+	.cardHard {
+		color: white;
+		height: 3rem;
+		width: 3rem;
+		margin: 0.3rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+
+	.cardMedium {
+		color: white;
+		height: 5rem;
+		width: 5rem;
+		margin: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		padding: 2rem;
+	}
+
+}
+
+@media screen and (min-width:701px) and (max-width:800px) {
+	.score-panel {
+		text-align: left;
+		height: 30%;
+		width: 60%;
+		margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+		padding: 0.2rem;
+		font-size: 1.875rem;
+		display: inline-block;
+
+	}
+	#refreshButton {
+		float: right;
+		cursor: pointer;
+		margin-top: 0.5rem;
+		width: 4.375rem;
+		height: 1.875rem;
+		border-radius: 0.625rem;
+		color: hotpink;
+		background-color: cornsilk;
+		font-size: 1.25rem;
+		display: inline-block;
+	}
+	.deck {
+		width: 65%;
+		height: 40%;
+		background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+		padding: 2rem;
+		border-radius: 0.625rem;
+		box-shadow: 0.825rem 1rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 0 3rem;
+		text-align: center;
+	}
+	.mediumStyle {
+		width: 80%;
+		height: 80%;
+		margin: 0;
+		padding: 0;
+	}
+	.hardStyle {
+		width: 80%;
+		height: 25%;
+		margin: 0 0 2rem;
+		padding: 1rem;
+	}
+	.cardMedium {
+		color: white;
+		height: 5rem;
+		width: 5rem;
+		margin: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		padding: 2rem;
+	}
+	.cardHard {
+		color: white;
+		height: 3.5rem;
+		width: 3.5rem;
+		margin: 0.3rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+}
+
+@media screen and (min-width:801px) and (max-width:1125px) {
+	.score-panel {
+		text-align: left;
+		height: 30%;
+		width: 40%;
+		margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+		padding: 0.2rem;
+		font-size: 1.875rem;
+		display: inline-block;
+
+	}
+	#refreshButton {
+		float: right;
+		cursor: pointer;
+		margin-top: 0.5rem;
+		width: 4.375rem;
+		height: 1.875rem;
+		border-radius: 0.625rem;
+		color: hotpink;
+		background-color: cornsilk;
+		font-size: 1.25rem;
+		display: inline-block;
+	}
+	.deck {
+		width: 50%;
+		height: 40%;
+		background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+		padding: 2rem;
+		border-radius: 0.625rem;
+		box-shadow: 0.825rem 1rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 0 3rem;
+		text-align: center;
+	}
+	.mediumStyle {
+		width: 80%;
+		height: 80%;
+		margin: 0;
+		padding: 0;
+	}
+	.hardStyle {
+		width: 100%;
+		height: 25%;
+		margin: 0 0 2rem;
+		padding: 1rem;
+	}
+	.cardMedium {
+		color: white;
+		height: 5rem;
+		width: 5rem;
+		margin: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		padding: 2rem;
+	}
+	.cardHard {
+		color: white;
+		height: 3.5rem;
+		width: 3.5rem;
+		margin: 0.3rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+	}
+}
+
+@media screen and (min-width:1440px) {
+
+	.cardMedium {
+		color: white;
+		height: 6rem;
+		width: 6rem;
+		margin: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+		padding: 2rem;
+	}
+	.cardHard {
+		color: white;
+		height: 5.5rem;
+		width: 5.5rem;
+		margin: 0.5rem;
+		background-color: #2e3d49;
+		font-size: 0;
+		color: #ffffff;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0.312rem 0.156rem 1.25rem 0 rgba(46, 61, 73, 0.5);
+
+	}
+	.hardStyle {
+		width: 100%;
+		height: 25%;
+		margin: 0 0 2rem;
+		padding: 1rem;
+	}
+
+}
