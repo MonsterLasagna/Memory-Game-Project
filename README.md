@@ -2,10 +2,21 @@
 
 The Memory Game Project is a browser-based card matching game (similar to Concentration).
 
+## Game instalation
+
+-Requirements: web browser and game folder with the html, css and javascript files.
+
+The game requires no further instalation after it is downloaded. 
+The User has to double click on the html file and the game will run automatically in the default chosen browser.For example if the user has Opera set as default browser the game will run in Opera.
+The game was built using Atom and Brackets.
+I played the game most of the time using Google Chrome but the game works in other browsers as well.
+Reccomended browsers: Google Chrome, Mozilla Firefox, Opera.
+I also recommend playing the game on laptops or computers since they have bigger screens and it is easyer to play but the game also works on devices with smaller screens.
+
 ## Game Functionality
 
 The players flip over cards to locate pairs of symbols that match.
-When cards match they change color and remain flipped on the board, when the cards do not match they change background color to purple for a few miliseconds and then they flip back.
+When cards match they change color and remain flipped on the board, when the cards do not match they change background color to purple for a few miliseconds and then they flip back.  
 When the player manages to match  all of the pairs the game ends.
 
 ## How the game works 
